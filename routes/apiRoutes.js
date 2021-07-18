@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 module.exports = (app) => {
-    app.get('/api/notes', (req, res) => res.sendFile(path.join(__dirname, '../db/db.json')))
+    app.get('/api/notes', (req, res) => res.sendFile(path.join(__dirname, '..', 'db/db.json')));
     app.get('/api/notes', (req, res) => res.json(db));
     app.get('/api/notes/:id', (req, res) => {
      res.json(notes[req.params.id]);
@@ -39,7 +39,7 @@ module.exports = (app) => {
 
             if (note.id == id) {
                 notesArray.splice(i, 1);
-                fs.writeFileSync(path.join(__dirname, "../db/db.json"), JSON.stringify(notesArray, null, 2))
+                fs.writeFileSync(path.join(__dirname, '..', 'db/db.json'), JSON.stringify(notesArray, null, 2))
             }
         }
     }
