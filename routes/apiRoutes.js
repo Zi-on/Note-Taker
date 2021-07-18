@@ -18,7 +18,7 @@ module.exports = (app) => {
   
     app.post('/api/notes', (req, res) => {
       newNote = req.body;
-      console.log(newNote)
+
       newNote.id = uuidv4();
       notes.push(newNote);
       fs.writeFile("db/db.json",JSON.stringify(notes,'/n'),err => {
