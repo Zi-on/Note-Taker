@@ -2,6 +2,7 @@ const dataBase = require("../db/db.json");
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid");
+let notes = JSON.parse(fs.readFileSync(path.join(__dirname, "../db/db.json" ), "utf8"));
 module.exports = (app) => {
   app.get("/api/notes", (req, res) =>
     res.sendFile(path.join(__dirname, "..", "db/db.json"))
@@ -12,11 +13,11 @@ module.exports = (app) => {
     res.json(true);
   });
 
-  fs.readFile("db/db.json", (err, data) => {
-    if (err) throw err;
-    notes = JSON.parse(data);
-    console.log(notes);
-  });
+  // fs.readFile("db/db.json", (err, data) => {
+  //   if (err) throw err;
+  //   notes = JSON.parse(data);
+  //   console.log(notes);
+  // });
 
   app.post("/api/notes", (req, res) => {
     newNote = req.body;
@@ -30,7 +31,7 @@ module.exports = (app) => {
   });
 
   app.delete("/api/notes/:id", (req, res) => {
-    deleteNote(req.params.id, dataBase);
+    deleteNote(req.params.id, notes);
     res.json(true);
     console.log(req.params.id);
   });
